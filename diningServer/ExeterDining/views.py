@@ -1,5 +1,9 @@
 from django.shortcuts import render
+from .push import Push
+from rest_framework.response import Response
 from django.http import JsonResponse
+from rest_framework.decorators import api_view
+from push_notifications.models import APNSDevice
 
 # Create your views here.
 def restaurant_list(request, format=None):
@@ -19,3 +23,15 @@ def restaurant_list(request, format=None):
              {'Elm Street':
                   {'breakfast':eBreakfast, 'lunch':eLunch, 'dinner':eDinner}}]
          })
+
+def sendPushMessage(request,):
+    if request.method == 'GET':
+        push = Push()
+        push.sendMessage(1)
+        return JsonResponse({'PUSH':'SUCCESS'})
+
+def getAPNSToken(request):
+    if request.method == 'POST':
+        APNS = request.POST['APNS_TOKEN']
+        APNSDevice(registration_id = APNS).save()
+        return JsonResponse({'Token:': APNS})
