@@ -35,8 +35,11 @@ class Crawler:
     restaurants = [wetherell,elmStreet]
     todayStatus = ERestaurantStatus.USUAL_BUSINESS
     def raw_html(self):
-        handle = urllib.request.urlopen(BASE_URL)
-        html_gunk = handle.read()
+        try:
+            handle = urllib.request.urlopen(BASE_URL)
+            html_gunk = handle.read()
+        except:
+            html_gunk = 'None'
         return html_gunk
     def currentHour(self):
         #데이터받은뒤에푸쉬할때필요
@@ -104,6 +107,7 @@ class Crawler:
         self.elmStreet = ERestaurant(el[0],el[1],el[2])
 
     def getTodayMeals(self):
+        print(self.raw_html())
         soup = BeautifulSoup(self.raw_html(),"html.parser")
         self.weekMeals = soup.findAll("td")
         #21개 3끼 x 7일 순서는 일요일아침~토요일저녁
