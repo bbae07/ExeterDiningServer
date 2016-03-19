@@ -11,13 +11,13 @@ def restaurant_list(request, format=None):
 
     if request.method == 'GET':
         crawl = Crawler()
-        crawl.getgetTodayMeals()[0].breakfast
-        wBreakfast = crawl.getgetTodayMeals()[0].breakfast
-        wLunch = crawl.getgetTodayMeals()[0].lunch
-        wDinner = crawl.getgetTodayMeals()[0].dinner
-        eBreakfast = crawl.getgetTodayMeals()[1].breakfast
-        eLunch = crawl.getgetTodayMeals()[1].lunch
-        eDinner = crawl.getgetTodayMeals()[1].dinner
+        crawl.getTodayMeals()[0].breakfast
+        wBreakfast = crawl.getTodayMeals()[0].breakfast
+        wLunch = crawl.getTodayMeals()[0].lunch
+        wDinner = crawl.getTodayMeals()[0].dinner
+        eBreakfast = crawl.getTodayMeals()[1].breakfast
+        eLunch = crawl.getTodayMeals()[1].lunch
+        eDinner = crawl.getTodayMeals()[1].dinner
         return JsonResponse(
         {'Restaurants':
              [{'Wetherell':
