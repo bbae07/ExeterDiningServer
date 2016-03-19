@@ -11,7 +11,6 @@ def restaurant_list(request, format=None):
 
     if request.method == 'GET':
         crawl = Crawler()
-        crawl.getTodayMeals()[0].breakfast
         wBreakfast = crawl.getTodayMeals()[0].breakfast
         wLunch = crawl.getTodayMeals()[0].lunch
         wDinner = crawl.getTodayMeals()[0].dinner
