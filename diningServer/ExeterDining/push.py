@@ -5,5 +5,5 @@ class Push:
 		device = APNSDevice.objects.all()
 		if device is None:
 			print('No Device')
-		message = 'Home Fried Potatoes, Yo-nola Bar, Soup du Jour, More...'
+		message = '<Elm Street Menu>\nHome Fried Potatoes, Yo-nola Bar, Soup du Jour, Los Angeles Kalbi, Bibimbab, More...'
 		device.send_message(message)

@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .push import Push
+from .crawler import Crawler
 from rest_framework.response import Response
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
@@ -9,13 +10,14 @@ from push_notifications.models import APNSDevice
 def restaurant_list(request, format=None):
 
     if request.method == 'GET':
-
-        wBreakfast = ['Chilled Fruit Juices']
-        wLunch = ['Home Fried Potatoes','Yo-nola Bar','Soup du Jour']
-        wDinner = ['Steamed Vegetable','Manager Choice Dessert']
-        eBreakfast = ['Pete & Gerrys Organic Boiled Eggs','Ham and Cheese Omelet','Corned Beef Hash']
-        eLunch = ['Roast Pork Loin','Pepperoni Calzone from the Hearth','Chicken Caesar Salad']
-        eDinner = ['Edamame Stir Fry','Sweet Potato Fries','Roasted Vegetable','Homemade Waffles','Steel Cut Oatmeal']
+        crawl = Crawler()
+        crawl.getgetTodayMeals()[0].breakfast
+        wBreakfast = crawl.getgetTodayMeals()[0].breakfast
+        wLunch = crawl.getgetTodayMeals()[0].lunch
+        wDinner = crawl.getgetTodayMeals()[0].dinner
+        eBreakfast = crawl.getgetTodayMeals()[1].breakfast
+        eLunch = crawl.getgetTodayMeals()[1].lunch
+        eDinner = crawl.getgetTodayMeals()[1].dinner
         return JsonResponse(
         {'Restaurants':
              [{'Wetherell':
@@ -27,7 +29,8 @@ def restaurant_list(request, format=None):
 def sendPushMessage(request,):
     if request.method == 'GET':
         push = Push()
-        push.sendMessage(1)
+        crawl = Crawler()
+        push.sendMessage(crawl.todayStatus)
         return JsonResponse({'PUSH':'SUCCESS'})
 
 def getAPNSToken(request):
